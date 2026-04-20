@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lúcio Moraes</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', sans-serif;
+      background: #111111;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 16px 60px;
+      color: #fff;
+    }
+
+    .avatar-ring {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      padding: 2.5px;
+      background: #fff;
+      animation: pulse-ring 2s ease-in-out infinite;
+      margin-bottom: 14px;
+    }
+    @keyframes pulse-ring {
+      0%, 100% { box-shadow: 0 0 0px 0px rgba(255,255,255,0); }
+      50% { box-shadow: 0 0 22px 10px rgba(255,255,255,0.45); }
+    }
+    .avatar-inner {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: #222;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 600;
+      color: #888;
+      border: 2px solid #111;
+      overflow: hidden;
+    }
+    .avatar-inner img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .profile-name {
+      font-size: 19px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 7px;
+    }
+    .verified {
+      width: 18px; height: 18px;
+      background: linear-gradient(135deg, #f5c842, #c8960c);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 6px rgba(200,150,12,0.5);
+    }
+    .verified svg { width: 10px; height: 10px; }
+
+    .profile-bio {
+      font-size: 12px;
+      color: #777;
+      text-align: center;
+      line-height: 1.75;
+      max-width: 270px;
+      margin-bottom: 4px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      width: 100%;
+      max-width: 340px;
+    }
+    .btn-pill {
+      flex: 1;
+      padding: 11px 0;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: opacity 0.15s, transform 0.15s;
+      text-decoration: none;
+    }
+    .btn-pill:active { transform: scale(0.97); opacity: 0.85; }
+    .btn-dark { background: #222; color: #fff; border: 0.5px solid #333; }
+    .btn-light { background: #fff; color: #111; border: none; }
+
+    .grid-wrap {
+      width: 100%;
+      max-width: 340px;
+      margin-top: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .section-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 2px;
+    }
+    .card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .card-row.single { grid-template-columns: 1fr; }
+
+    .card {
+      background: #1c1c1c;
+      border-radius: 18px;
+      border: 0.5px solid #2a2a2a;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      text-decoration: none;
+      color: #fff;
+      transition: transform 0.15s, border-color 0.15s;
+      min-height: 115px;
+    }
+    .card:hover { transform: scale(1.02); border-color: #3a3a3a; }
+    .card:active { transform: scale(0.97); }
+    .card-icon { font-size: 26px; margin-bottom: 10px; line-height: 1; }
+    .card-title { font-size: 13px; font-weight: 600; line-height: 1.3; margin-bottom: 3px; }
+    .card-sub { font-size: 11px; color: #666; line-height: 1.4; }
+
+    .card-wide {
+      grid-column: span 2;
+      flex-direction: row;
+      align-items: center;
+      gap: 14px;
+      min-height: 76px;
+      padding: 14px 18px;
+    }
+    .card-wide .icon-big { font-size: 30px; flex-shrink: 0; }
+    .card-wide .text { flex: 1; }
+    .card-badge { font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: #555; margin-bottom: 3px; }
+    .card-wide .arrow { font-size: 18px; color: #444; }
+
+    .social-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+      justify-content: center;
+    }
+    .soc-btn {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: #1c1c1c;
+      border: 0.5px solid #2a2a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: #777;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      text-decoration: none;
+    }
+    .soc-btn:hover { border-color: #555; color: #fff; transform: scale(1.08); }
+
+    .footer-text { margin-top: 28px; font-size: 10px; color: #2a2a2a; letter-spacing: 1px; }
+  </style>
+</head>
+<body>
+
+  <div class="avatar-ring">
+    <div class="avatar-inner">
+      <!-- Para adicionar foto: substitua o "LM" abaixo por: <img src="URL_DA_SUA_FOTO" alt="Lúcio Moraes" /> -->
+      LM
+    </div>
+  </div>
+
+  <div class="profile-name">
+    Lúcio Moraes
+    <span class="verified">
+      <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 5.5L4 7.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </div>
+
+  <div class="profile-bio">
+    Empresário · Perito Criminal Digital<br>
+    Esposo de <a href="https://www.instagram.com/elines.branco/" target="_blank" style="color:#c8960c;text-decoration:none;">Elines Branco</a> 🤍<br>
+    Pai de <a href="https://www.instagram.com/beatriz.mrtns/" target="_blank" style="color:#aaa;text-decoration:none;">Ana Beatriz</a> 🤍
+  </div>
+
+  <div class="btn-row">
+    <a class="btn-pill btn-dark" href="https://instagram.com/luciosamoraes" target="_blank">✦ Seguir</a>
+    <a class="btn-pill btn-light" href="https://wa.me/5598981512383" target="_blank">✉ Mensagem</a>
+  </div>
+
+  <div class="grid-wrap">
+
+    <div class="section-label">Pessoal</div>
+    <div class="card-row">
+      <a class="card" href="https://instagram.com/luciosamoraes" target="_blank">
+        <div class="card-icon">👤</div>
+        <div class="card-title">Sobre mim</div>
+        <div class="card-sub">Minha vida pessoal</div>
+      </a>
+      <a class="card" href="https://tiktok.com/@luciosamoraes" target="_blank">
+        <div class="card-icon">🛠️</div>
+        <div class="card-title">Habilidades e Ferramentas</div>
+        <div class="card-sub">O que eu domino</div>
+      </a>
+    </div>
+
+    <div class="section-label" style="margin-top:10px">Profissional — Perito Digital</div>
+    <div class="card-row">
+      <a class="card" href="https://linkedin.com/in/luciosamoraes" target="_blank">
+        <div class="card-icon">💼</div>
+        <div class="card-title">LinkedIn</div>
+        <div class="card-sub">Perfil profissional</div>
+      </a>
+      <a class="card" href="https://youtube.com/@luciosamoraes" target="_blank">
+        <div class="card-icon">▶️</div>
+        <div class="card-title">YouTube</div>
+        <div class="card-sub">Conteúdo e vlogs</div>
+      </a>
+    </div>
+
+    <div class="section-label" style="margin-top:10px">Empreendimentos</div>
+    <div class="card-row single">
+      <a class="card card-wide" href="https://instagram.com/informaxma" target="_blank">
+        <div class="icon-big">🏢</div>
+        <div class="text">
+          <div class="card-badge">Tecnologia & Perícia</div>
+          <div class="card-title">Informax</div>
+          <div class="card-sub">@informaxma</div>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+      <a class="card card-wide" href="https://instagram.com/fenixcvma" target="_blank">
+        <div class="icon-big">🔥</div>
+        <div class="text">
+          <div class="card-badge">Negócio</div>
+          <div class="card-title">Fênix CVM</div>
+          <div class="card-sub">@fenixcvma</div>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+      <a class="card card-wide" href="https://instagram.com/santaclaraemplacamentos" target="_blank">
+        <div class="icon-big">🚗</div>
+        <div class="text">
+          <div class="card-badge">Emplacamentos</div>
+          <div class="card-title">Santa Clara</div>
+          <div class="card-sub">@santaclaraemplacamentos</div>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+    </div>
+
+  </div>
+
+  <div class="social-row">
+    <a class="soc-btn" href="https://instagram.com/luciosamoraes" target="_blank">IG</a>
+    <a class="soc-btn" href="https://tiktok.com/@luciosamoraes" target="_blank">TK</a>
+    <a class="soc-btn" href="https://wa.me/5598981512383" target="_blank">WA</a>
+    <a class="soc-btn" href="https://youtube.com/@luciosamoraes" target="_blank">YT</a>
+    <a class="soc-btn" href="https://linkedin.com/in/luciosamoraes" target="_blank">IN</a>
+  </div>
+
+  <div class="footer-text">© 2026 · LÚCIO MORAES</div>
+
+</body>
+</html>
